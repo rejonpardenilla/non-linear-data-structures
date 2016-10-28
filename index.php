@@ -29,7 +29,7 @@ foreach ($array as $element) {
 
 echo '<br>';
 
-$tree = $tree->delete("x");
+$tree->delete("x");
 
 $array = $tree->postorder();
 

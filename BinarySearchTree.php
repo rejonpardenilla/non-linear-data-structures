@@ -26,24 +26,81 @@ class BinarySearchTree extends BinaryTree {
 
 
 
-  # TODO: Repair delete
-  #       implement Node->parent
-  function delete($data) {
-    $this->recursiveDelete($this->root, $data);
-  }
 
-  function recursiveDelete($subroot, $data) {
-    if ($subroot != null) {
-      if ($data == $subroot->data) {
-        $subroot = null;
-      } else if ($data > $subroot->data) {
-        $this->recursiveDelete($subroot->right, $data);
+  function delete($data) {
+    if ($this->root == null) {
+      return false;
+    } else {
+      if ($data == $this->root->data) {
+        $dummyRoot = new Node(null);
+        $dummyRoot->left = $this->root;
+        $result = $this->recursiveDelete($this->root, $dummyRoot, $data);
+        $this->root = $dummyRoot->left;
+        return $result;
       } else {
-        $this->recursiveDelete($subroot->left, $data);
+        return $this->recursiveDelete($this->root, null, $data);
       }
     }
-    return $subroot;
   }
+
+  function recursiveDelete($subroot, $parent, $data) {
+    if ($data < $subroot->data) {
+      
+      if ($subroot->left != null) {
+        $this->recursiveDelete($subroot->left, $subroot, $data);
+      } else {
+        return false;
+      }
+
+    } elseif ($data > $subroot->data) {
+      
+      if ($subroot->right != null) {
+        $this->recursiveDelete($subroot->right, $subroot, $data);
+      } else {
+        return false;
+      }
+
+    } else {
+
+      if ($subroot->left != null && $subroot->right != null) {
+        $subroot->data = $this->findMin($subroot->right);
+        $this->recursiveDelete($subroot->right, $subroot, $subroot->data);
+      } elseif ($parent->left == $subroot) {
+        $parent->left = ($subroot->left != null) ? $subroot->left : $subroot->right;
+      } elseif ($parent->right == $subroot) {
+        $parent->right = ($subroot->left != null) ? $subroot->left : $subroot->right;
+      }
+
+      return true;
+    }
+  }
+
+
+
+
+
+  function findMax($subroot) {
+    if ($subroot != null) {
+      while ($subroot->right != null) {
+        $subroot = $subroot->right;
+      }
+    }
+    return $subroot->data;
+  }
+
+  function findMin($subroot) {
+    if ($subroot != null) {
+      while ($subroot->left != null) {
+        $subroot = $subroot->left;
+      }
+    }
+    return $subroot->data;
+  }
+
+
+
+
+
 
 }
 
