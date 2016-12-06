@@ -258,7 +258,6 @@ class AVLTree {
    * More helpers
    * 
    */
-
   private function findMin($subroot) {
     if ($subroot != null) {
       while ($subroot->left != null) {
@@ -277,6 +276,56 @@ class AVLTree {
     return $subroot->data;
   }
 
+  /**
+   * 
+   * Tree transversals:
+   * Preorder, inorder and postorder
+   * 
+   */
+  function preorder() {
+    $array = array();
+    $array = $this->recursivePreorder($array, $this->root);
+    return $array;
+  }
+
+  private function recursivePreorder($array, $node) {
+    if ($node != null) {
+      array_push($array, $node->data);
+      $array = $this->recursivePreorder($array, $node->left);
+      $array = $this->recursivePreorder($array, $node->right);
+    }
+    return $array;
+  }
+
+  function inorder() {
+    $array = array();
+    $array = $this->recursiveInorder($array, $this->root);
+    return $array;
+  }
+
+  private function recursiveInorder($array, $node) {
+    if ($node != null) {
+      $array = $this->recursiveInorder($array, $node->left);
+      array_push($array, $node->data);
+      $array = $this->recursiveInorder($array, $node->right);
+    }
+    return $array;
+  }
+
+  function postorder() {
+    $array = array();
+    $array = $this->recursivePostorder($array, $this->root);
+    return $array;
+  }
+
+  private function recursivePostorder($array, $node) {
+    if ($node != null) {
+      $array = $this->recursivePostorder($array, $node->left);
+      $array = $this->recursivePostorder($array, $node->right);
+      array_push($array, $node->data);
+    }
+    return $array;
+  }
 
 
 

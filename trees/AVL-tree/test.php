@@ -18,10 +18,25 @@ if ($tree->contains(12)) {
   echo "Contiene 12!! <br>";
 }
 
-$tree->delete(5);
-
-if ($tree->contains(5)) {
-  echo "Contiene 5!! <br>";
+echo "preorder: ";
+$array = $tree->preorder();
+foreach ($array as $element) {
+  echo $element . ", ";
 }
+echo "<br>";
+
+echo "inorder: ";
+$array = $tree->inorder();
+foreach ($array as $element) {
+  echo $element . ", ";
+}
+echo "<br>";
+
+echo "postorder: ";
+$array = $tree->postorder();
+foreach ($array as $element) {
+  echo $element . ", ";
+}
+echo "<br>";
 
  ?>
