@@ -51,7 +51,7 @@ class BinaryTree {
       $array = $this->recursivePreorder($array, $node->right);
     }
     return $array;
-  } 
+  }
 
 
 

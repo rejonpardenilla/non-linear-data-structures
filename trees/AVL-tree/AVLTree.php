@@ -182,7 +182,7 @@ class AVLTree {
   private function setBalance( ...$nodes) {
     foreach ($nodes as $node) {
       if ($node != null) {
-        $node->balance = $this->height($node->right) - $this->height($node->left);
+        $node->balance = ( $this->height($node->right) ) - ( $this->height($node->left) );
       }
     }
   }
