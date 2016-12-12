@@ -3,7 +3,6 @@ require_once 'AVLNode.php';
 
 class AVLTree {
   public $root;
-  public $data;
 
   /**
    * 
@@ -15,7 +14,7 @@ class AVLTree {
    */
   function insert($data) {
     if ($this->root == null) {
-      $this->root = AVLNode::withData($data);
+      $this->root = new AVLNode(null, $data, null, null);
     } else {
       $this->recursiveInsert($this->root, $data);
     }
@@ -27,9 +26,10 @@ class AVLTree {
     } elseif ($data < $subroot->data) {
 
       if ($subroot->left == null) {
-        $subroot->left = AVLNode::withParent($subroot, $data);
+        $subroot->left = new AVLNode($subroot, $data, null, null);
         // count++;
-        $this->rebalance($subroot);
+        $this->rebalance($subroot); #
+
         return true;
       } else {
         $this->recursiveInsert($subroot->left, $data);
@@ -38,9 +38,10 @@ class AVLTree {
     } else {
 
       if ($subroot->right == null) {
-        $subroot->right = AVLNode::withParent($subroot, $data);
+        $subroot->right = new AVLNode($subroot, $data, null, null);
         // count++;
-        $this->rebalance($subroot);
+        $this->rebalance($subroot); #
+        
         return true;
       } else {
         $this->recursiveInsert($subroot->right, $data);
@@ -103,7 +104,7 @@ class AVLTree {
       } elseif ($parent->right == $subroot) {
         $parent->right = ($subroot->left != null) ? $subroot->left : $subroot->right;
       }
-      $this->rebalance($parent);
+      $this->rebalance($parent); #
 
       return true;
     }
@@ -153,6 +154,7 @@ class AVLTree {
    */
   private function rebalance($subroot) {
     $this->setBalance($subroot, $subroot->left, $subroot->right);
+    //echo "<pre>".print_r($subroot)."</pre>";
 
     if ($subroot->balance == -2) {
       
@@ -181,13 +183,16 @@ class AVLTree {
 
   private function setBalance( ...$nodes) {
     foreach ($nodes as $node) {
-      if ($node != null) {
-        $node->balance = ( $this->height($node->right) ) - ( $this->height($node->left) );
+      //var_dump($node);
+      //echo "<br><br>";
+      if ($node !== null) {
+        $node->balance = $this->height($node->right) - $this->height($node->left);
       }
     }
   }
   
   private function rotateLeftLeft($subroot) {
+    //var_dump($subroot);
     $aux = $subroot->left;
     $aux->parent = $subroot->parent;
     $subroot->left = $aux->right;

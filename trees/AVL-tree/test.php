@@ -9,13 +9,21 @@ $tree->insert(5);
 $tree->insert(6);
 $tree->insert(12);
 $tree->insert(7);
+//$e = $tree->root->right->right;
+//echo "El dato es" . $e->parent->data;
 
+echo "<pre>" . print_r($tree) . "</pre>";
 
-/** This works
-$tree->insert(3);
+/** This doesn't work
 $tree->insert(5);
+$tree->insert(8);
 $tree->insert(6);
+$tree->insert(3);
 $tree->insert(7);
+$tree->insert(11);
+$tree->insert(9);
+$tree->insert(12);
+$tree->delete(8);
 **/
 
 
