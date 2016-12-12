@@ -160,7 +160,7 @@ class AVLTree {
       
       if ($subroot->left->balance <= 0) {
         $subroot = $this->rotateLeftLeft($subroot);
-      } elseif ($subroot->left->balance == 1) {
+      } elseif ($subroot->balance == 1) {
         $subroot = $this->rotateLeftRight($subroot);
       }
 
@@ -168,7 +168,7 @@ class AVLTree {
 
       if ($subroot->right->balance >= 0) {
         $subroot = $this->rotateRightRight($subroot);
-      } elseif ($subroot->right->balance == -1) {
+      } elseif ($subroot->balance == -1) {
         $subroot = $this->rotateRightLeft($subroot);
       }
 
